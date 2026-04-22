@@ -11,12 +11,10 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-
-from core.views import UserRegistrationView, UserViewSet
+from core.views import AdministradorRegistrationView, AdministradorViewSet
 
 router = DefaultRouter()
-
-router.register(r'usuarios', UserViewSet, basename='usuarios')
+router.register(r'administradores', AdministradorViewSet, basename='administradores')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,8 +34,8 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-    # Registro de usuários
-    path('api/registro/', UserRegistrationView.as_view(), name='user_registration'),
+    # Registro de administradores
+    path('api/registro/', AdministradorRegistrationView.as_view(), name='administrador_registration'),
     # API
     path('api/', include(router.urls)),
 ]

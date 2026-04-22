@@ -7,24 +7,32 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from datetime import date
 
 
-class UserManager(BaseUserManager):
-    """Manager for users."""
+CARGO_CHOICES = (
+    ('chefe', 'Chefe'),
+    ('gerente', 'Gerente'),
+    ('nutricionista', 'Nutricionista'),
+    ('cuidador', 'Cuidador'),
+)
+
+
+class AdministradorManager(BaseUserManager):
+    """Manager for administradores."""
 
     use_in_migrations = True
 
     def create_user(self, email, password=None, **extra_fields):
-        """Create, save and return a new user."""
+        """Create, save and return a new administrador."""
         if not email:
             raise ValueError('Users must have an email address.')
-
         user = self.model(email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-
         return user
 
     def create_superuser(self, email, password):
@@ -33,15 +41,28 @@ class UserManager(BaseUserManager):
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
-
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
-    """User model in the system."""
+class Administrador(AbstractBaseUser, PermissionsMixin):
+    """Administrador model in the system."""
 
     email = models.EmailField(max_length=255, unique=True, verbose_name=_('email'), help_text=_('Email'))
-    name = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('name'), help_text=_('Username'))
+    nome = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('nome'), help_text=_('Nome completo'))
+    telefone = models.CharField(
+        max_length=15, blank=True, null=True, verbose_name=_('telefone'), help_text=_('Telefone')
+    )
+    cargo = models.CharField(
+        max_length=50,
+        choices=CARGO_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name=_('cargo'),
+        help_text=_('Cargo do administrador'),
+    )
+    data_registro = models.DateField(
+        default=date.today, verbose_name=_('data de registro'), help_text=_('Data de registro')
+    )
     is_active = models.BooleanField(
         default=True, verbose_name=_('Usuário está ativo'), help_text=_('Indica que este usuário está ativo.')
     )
@@ -51,7 +72,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text=_('Indica que este usuário pode acessar o Admin.'),
     )
 
-    objects = UserManager()
+    objects = AdministradorManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -59,5 +80,5 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         """Meta options for the model."""
 
-        verbose_name = 'Usuário'
-        verbose_name_plural = 'Usuários'
+        verbose_name = 'Administrador'
+        verbose_name_plural = 'Administradores'
