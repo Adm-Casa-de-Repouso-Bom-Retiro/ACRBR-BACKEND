@@ -8,31 +8,17 @@ from dotenv import load_dotenv
 load_dotenv()
 
 MODE = os.getenv('MODE')
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure')
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
-
-ALLOWED_HOSTS = [
-    'acrbr-backend-enqh.onrender.com',
-    'localhost',
-    '127.0.0.1',
-]
-
+DEBUG = os.getenv('DEBUG', 'False')
+ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
-    'https://web-production-9a24.up.railway.app',
-    'https://acrbr.vercel.app',
-    'https://acrbr-backend-enqh.onrender.com',
 ]
-
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-
-CORS_ALLOWED_ORIGINS = [
-    'https://acrbr.vercel.app',
-]
+CORS_ALLOW_ALL_ORIGINS = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -85,17 +71,26 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3'),
+        default='sqlite:///db.sqlite3',
         conn_max_age=600,
         conn_health_checks=True,
     )
 }
 
+# Validação de senhas
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
 LANGUAGE_CODE = 'pt-br'
@@ -103,18 +98,19 @@ TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = 'static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ENDPOINT = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 FILE_UPLOAD_PERMISSIONS = 0o640
 
 if MODE == 'DEVELOPMENT':
+    MY_IP = os.getenv('MY_IP', '127.0.0.1')
     MEDIA_URL = 'http://127.0.0.1:8000/media/'
 else:
     MEDIA_URL = '/media/'
     CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
-
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STORAGES = {
         'default': {
             'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
@@ -124,7 +120,9 @@ else:
         },
     }
 
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 SPECTACULAR_SETTINGS = {
     'TITLE': '<PROJETO> API',
@@ -132,7 +130,9 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
 }
 
+
 AUTH_USER_MODEL = 'core.Administrador'
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
@@ -147,4 +147,4 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-print(f'{MODE = }\n{MEDIA_URL = }\n{DATABASES = }')
+print(f'{MODE = } \n{MEDIA_URL = } \n{DATABASES = }')
