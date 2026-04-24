@@ -5,26 +5,35 @@ from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
 
-# Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
 
-# Define o modo de execução da aplicação
 MODE = os.getenv('MODE')
-
-# Constrói o caminho base do projeto, usado para definir caminhos relativos
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Segurança e configuração básica
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure')
-DEBUG = os.getenv('DEBUG', 'False')
-ALLOWED_HOSTS = ['*']
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'web-production-9a24.up.railway.app',
+    'acrbr.vercel.app',
+]
+
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
+    'https://web-production-9a24.up.railway.app',
+    'https://acrbr.vercel.app',
 ]
-CORS_ALLOW_ALL_ORIGINS = True
 
-# Aplicações instaladas
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+CORS_ALLOWED_ORIGINS = [
+    'https://acrbr.vercel.app',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -74,7 +83,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-# Banco de dados
 DATABASES = {
     'default': dj_database_url.config(
         default='sqlite:///db.sqlite3',
@@ -83,39 +91,25 @@ DATABASES = {
     )
 }
 
-# Validação de senhas
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Configurações de internacionalização
 LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_TZ = True
 
-# Configurações de arquivos estáticos
 STATIC_URL = 'static/'
 
-# Configurações de arquivos de mídia (App Uploader)
 MEDIA_ENDPOINT = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 FILE_UPLOAD_PERMISSIONS = 0o640
 
-# Configurações específicas para desenvolvimento, migração e produção
 if MODE == 'DEVELOPMENT':
-    MY_IP = os.getenv('MY_IP', '127.0.0.1')
     MEDIA_URL = 'http://127.0.0.1:8000/media/'
 else:
     MEDIA_URL = '/media/'
@@ -130,20 +124,16 @@ else:
         },
     }
 
-# Tipo padrão de campo para chaves primárias
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Configurações do DRF e drf-spectacular (OpenAPI/Swagger)
 SPECTACULAR_SETTINGS = {
     'TITLE': '<PROJETO> API',
     'DESCRIPTION': 'API para o projeto <descreva aqui seu projeto>.',
     'VERSION': '1.0.0',
 }
 
-# Modelo de usuário personalizado
 AUTH_USER_MODEL = 'core.Administrador'
 
-# Configurações do Django REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
     'DEFAULT_PAGINATION_CLASS': 'app.pagination.CustomPagination',
@@ -151,12 +141,10 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
 }
 
-# Configurações do Simple JWT
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=180),  # Tokens de acesso expiram em 3 horas
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # Tokens de atualização expiram em 1 dia
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=180),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-# Exibe as configurações principais para verificação
 print(f'{MODE = } \n{MEDIA_URL = } \n{DATABASES = }')
