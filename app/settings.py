@@ -14,10 +14,9 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
+    'acrbr-backend-enqh.onrender.com',
     'localhost',
     '127.0.0.1',
-    'web-production-9a24.up.railway.app',
-    'acrbr.vercel.app',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -25,6 +24,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'https://web-production-9a24.up.railway.app',
     'https://acrbr.vercel.app',
+    'https://acrbr-backend-enqh.onrender.com',
 ]
 
 CSRF_COOKIE_SECURE = True
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
+        default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3'),
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -103,10 +103,10 @@ TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_ENDPOINT = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 FILE_UPLOAD_PERMISSIONS = 0o640
 
 if MODE == 'DEVELOPMENT':
@@ -114,7 +114,7 @@ if MODE == 'DEVELOPMENT':
 else:
     MEDIA_URL = '/media/'
     CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
     STORAGES = {
         'default': {
             'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
@@ -147,4 +147,4 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-print(f'{MODE = } \n{MEDIA_URL = } \n{DATABASES = }')
+print(f'{MODE = }\n{MEDIA_URL = }\n{DATABASES = }')
