@@ -1,1 +1,13 @@
 from .user import AdministradorSerializer, AdministradorRegistrationSerializer
+from .AlergiaRestricao import AlergiaRestricaoSerializer
+from .AplicacaoMedicamentos import AplicacaoMedicamentosSerializer
+from .Atendimento import AtendimentoSerializer
+from .AvaliacaoNutricional import AvaliacaoNutricionalSerializer
+from .FichaMedica import FichaMedicaSerializer
+from .MedicamentosPrescricao import MedicamentosPrescricaoSerializer
+from .Medicamentos import MedicamentoSerializer
+from .Ocorrencia import OcorrenciaSerializer
+from .PedidosMedicamento import PedidosMedicamentoSerializer
+from .Prescricao import PrescricaoSerializer
+from .Residente import ResidenteSerializer
+from .RotinaResidentes import RotinaResidentesSerializer

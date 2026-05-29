@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
+from click.utils import R
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -11,10 +12,22 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-from core.views import AdministradorRegistrationView, AdministradorViewSet
+from core.views import AdministradorRegistrationView, AdministradorViewSet, AlergiaRestricaoViewSet, AplicacaoMedicamentosViewSet, AtendimentoViewSet, AvaliacaoNutricionalViewSet, FichaMedicaViewSet, MedicamentosViewSet, MedicamentosPrescricaoViewSet, OcorrenciaViewSet, PedidosMedicamentoViewSet, PrescricaoViewSet, ResidenteViewSet, RotinaResidentesViewSet
 
 router = DefaultRouter()
 router.register(r'administradores', AdministradorViewSet, basename='administradores')
+router.register(r'alergiarestricoes', AlergiaRestricaoViewSet, basename='alergiarestricoes')
+router.register(r'aplicacoes', AplicacaoMedicamentosViewSet, basename='aplicacoes')
+router.register(r'atendimentos', AtendimentoViewSet, basename='atendimentos')
+router.register(r'avaliacaonutricionais', AvaliacaoNutricionalViewSet, basename='avaliacaonutricionais')
+router.register(r'fichasmedicas', FichaMedicaViewSet, basename='fichasmedicas')
+router.register(r'medicamentos', MedicamentosViewSet, basename='medicamentos')
+router.register(r'medicamentosprescricoes', MedicamentosPrescricaoViewSet, basename='medicamentosprescricoes')
+router.register(r'ocorrencias', OcorrenciaViewSet, basename='ocorrencias')
+router.register(r'pedidosmedicamentos', PedidosMedicamentoViewSet, basename='pedidosmedicamentos')
+router.register(r'prescricoes', PrescricaoViewSet, basename='prescricoes')
+router.register(r'residentes', ResidenteViewSet, basename='residentes')
+router.register(r'rotinaresidentes', RotinaResidentesViewSet, basename='rotinaresidentes')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

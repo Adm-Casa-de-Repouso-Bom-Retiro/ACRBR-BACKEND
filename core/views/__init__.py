@@ -1,1 +1,14 @@
 from .user import AdministradorRegistrationView, AdministradorViewSet
+from .AlergiaRestricao import AlergiaRestricaoViewSet
+from .AplicacaoMedicamentos import AplicacaoMedicamentosViewSet
+from .Atendimento import AtendimentoViewSet
+from .AvaliacaoNutricional import AvaliacaoNutricionalViewSet
+from .FichaMedica import FichaMedicaViewSet
+from .MedicamentosPrescricao import MedicamentosPrescricaoViewSet
+from .Medicamento import MedicamentosViewSet
+from .Ocorrencia import OcorrenciaViewSet
+from .PedidosMedicamento import PedidosMedicamentoViewSet
+from .Prescricao import PrescricaoViewSet
+from .Residente import ResidenteViewSet
+from .RotinaResidentes import RotinaResidentesViewSet
+
