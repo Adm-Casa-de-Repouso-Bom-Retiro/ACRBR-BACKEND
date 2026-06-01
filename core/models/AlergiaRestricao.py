@@ -1,11 +1,7 @@
-"""
-AlergiaRestricao model.
-"""
 from django.db import models
 
 
 class AlergiaRestricao(models.Model):
-    """Alergias e restrições do residente."""
 
     tipo = models.CharField(max_length=45, blank=True)
     descricao = models.CharField(max_length=200, blank=True)

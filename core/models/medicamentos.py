@@ -1,12 +1,7 @@
-"""
-Medicamento and EstoqueMedicamentos models.
-"""
 from django.db import models
 
 
 class EstoqueMedicamentos(models.Model):
-    """Controle de estoque de medicamentos."""
-
     quantidade_atual = models.IntegerField(default=0)
     quantidade_minima = models.IntegerField(default=0)
     data_ultimo_pedido = models.DateField(null=True, blank=True)
@@ -19,7 +14,6 @@ class EstoqueMedicamentos(models.Model):
 
 
 class Medicamento(models.Model):
-    """Cadastro dos medicamentos disponíveis."""
 
     nome_comercial = models.CharField(max_length=45)
     fabricante = models.CharField(max_length=45, blank=True)

@@ -1,12 +1,10 @@
-"""
-Residente model.
-"""
 from django.db import models
+from uploader.models import Image
 
 
 class Residente(models.Model):
-    """Dados cadastrais do idoso residente."""
 
+    Image,
     nome_responsavel = models.CharField(max_length=150)
     telefone_responsavel = models.CharField(max_length=14)
     parentesco = models.CharField(max_length=40, blank=True)

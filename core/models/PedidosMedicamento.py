@@ -1,12 +1,7 @@
-"""
-PedidosMedicamento model.
-"""
 from django.db import models
 
-
 class PedidosMedicamento(models.Model):
-    """Pedidos de reposição de estoque."""
-
+  
     qtd_solicitada = models.IntegerField()
     data_pedido = models.DateField()
     data_entrega = models.DateField(null=True, blank=True)

@@ -1,11 +1,8 @@
-"""
-RotinaResidentes model.
-"""
+
 from django.db import models
 
 
 class RotinaResidentes(models.Model):
-    """Rotina diária do residente."""
 
     DIAS_SEMANA_CHOICES = [
         ('segunda', 'Segunda-feira'),

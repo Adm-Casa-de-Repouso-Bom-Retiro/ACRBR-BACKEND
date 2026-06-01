@@ -1,11 +1,7 @@
-"""
-Prescricao model.
-"""
 from django.db import models
 
-
 class Prescricao(models.Model):
-    """Receita / prescrição médica vinculada a uma ficha médica."""
+    
 
     ficha_medica = models.ForeignKey(
         'core.FichaMedica',

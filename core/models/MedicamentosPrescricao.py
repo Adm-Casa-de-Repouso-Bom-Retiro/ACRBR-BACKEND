@@ -1,11 +1,7 @@
-"""
-MedicamentosPrescricao model.
-"""
 from django.db import models
 
 
 class MedicamentosPrescricao(models.Model):
-    """Liga um medicamento a uma prescrição com dosagem e frequência."""
 
     prescricao = models.ForeignKey(
         'core.Prescricao',

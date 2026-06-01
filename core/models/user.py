@@ -1,7 +1,3 @@
-"""
-Database models.
-"""
-
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -11,6 +7,8 @@ from django.contrib.auth.models import (
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from datetime import date
+from uploader.models import Image
+
 
 
 CARGO_CHOICES = (
@@ -22,12 +20,10 @@ CARGO_CHOICES = (
 
 
 class AdministradorManager(BaseUserManager):
-    """Manager for administradores."""
 
     use_in_migrations = True
 
     def create_user(self, email, password=None, **extra_fields):
-        """Create, save and return a new administrador."""
         if not email:
             raise ValueError('Users must have an email address.')
         user = self.model(email=self.normalize_email(email), **extra_fields)
@@ -36,7 +32,6 @@ class AdministradorManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password):
-        """Create, save and return a new superuser."""
         user = self.create_user(email, password)
         user.is_staff = True
         user.is_superuser = True
@@ -45,8 +40,7 @@ class AdministradorManager(BaseUserManager):
 
 
 class Administrador(AbstractBaseUser, PermissionsMixin):
-    """Administrador model in the system."""
-
+    Image,
     email = models.EmailField(max_length=255, unique=True, verbose_name=_('email'), help_text=_('Email'))
     nome = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('nome'), help_text=_('Nome completo'))
     telefone = models.CharField(
@@ -78,7 +72,5 @@ class Administrador(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:
-        """Meta options for the model."""
-
         verbose_name = 'Administrador'
         verbose_name_plural = 'Administradores'

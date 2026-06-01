@@ -1,11 +1,7 @@
-"""
-AvaliacaoNutricional model.
-"""
 from django.db import models
 
 
 class AvaliacaoNutricional(models.Model):
-    """Dados nutricionais do residente."""
 
     peso_kg = models.DecimalField(max_digits=5, decimal_places=2)
     altura_cm = models.DecimalField(max_digits=5, decimal_places=2)

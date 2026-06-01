@@ -1,12 +1,35 @@
 from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer, SlugRelatedField
+
 from core.models import Residente
+from uploader.models import Image
+from uploader.serializers import ImageSerializer
+
+
+class ResidenteRetrieveSerializer(ModelSerializer):
+    perfil = ImageSerializer(required=False)
+
+    class Meta:
+        model = Residente
+        fields = '__all__'
+        depth = 1
 
 
 class ResidenteSerializer(serializers.ModelSerializer):
-    responsavel_nome = serializers.CharField(
-        source='dados_residentes.__str__',
+    perfil_attachment_key = SlugRelatedField(
+        source='perfil',
+        queryset=Image.objects.all(),
+        slug_field='attachment_key',
+        required=False,
+        write_only=True,
+    )
+
+    perfil = ImageSerializer(
+        required=False,
         read_only=True
     )
+
+    responsavel_nome = serializers.SerializerMethodField()
 
     class Meta:
         model = Residente
@@ -20,4 +43,9 @@ class ResidenteSerializer(serializers.ModelSerializer):
             'data_saida',
             'dados_residentes',
             'responsavel_nome',
+            'perfil',
+            'perfil_attachment_key',
         ]
+
+    def get_responsavel_nome(self, obj):
+        return str(obj.dados_residentes) if obj.dados_residentes else None

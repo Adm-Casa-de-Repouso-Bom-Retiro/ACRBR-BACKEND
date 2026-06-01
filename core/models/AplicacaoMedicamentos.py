@@ -1,11 +1,7 @@
-"""
-AplicacaoMedicamentos model.
-"""
 from django.db import models
 
 
 class AplicacaoMedicamentos(models.Model):
-    """Registro de cada aplicação de medicamento realizada."""
 
     data_hora_prevista = models.DateTimeField()
     data_hora_aplicacao = models.DateTimeField(null=True, blank=True)

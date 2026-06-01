@@ -1,11 +1,7 @@
-"""
-FichaMedica model.
-"""
 from django.db import models
 
 
 class FichaMedica(models.Model):
-    """Informações médicas gerais do residente."""
 
     TIPO_SANGUINEO_CHOICES = [
         ('A+', 'A+'), ('A-', 'A-'),

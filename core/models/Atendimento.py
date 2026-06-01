@@ -1,11 +1,7 @@
-"""
-Atendimento model.
-"""
 from django.db import models
 
 
 class Atendimento(models.Model):
-    """Atendimentos realizados ao residente."""
 
     tipo = models.CharField(max_length=45, blank=True)
     data_hora = models.DateTimeField()

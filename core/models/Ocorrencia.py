@@ -1,11 +1,7 @@
-"""
-Ocorrencia model.
-"""
 from django.db import models
 
 
 class Ocorrencia(models.Model):
-    """Registro de emergências ou problemas com o residente."""
 
     tipo = models.CharField(max_length=45, blank=True)
     gravidade = models.CharField(max_length=45, blank=True)
