@@ -9,11 +9,24 @@ from core import models
 
 class AdministradorAdmin(BaseUserAdmin):
     """Define the admin pages for administradores."""
+
     ordering = ['id']
     list_display = ['email', 'nome', 'cargo']
+
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal Info'), {'fields': ('nome', 'telefone', 'cargo', 'data_registro')}),
+        (
+            _('Personal Info'),
+            {
+                'fields': (
+                    'nome',
+                    'telefone',
+                    'cargo',
+                    'data_registro',
+                    'foto',  
+                )
+            },
+        ),
         (
             _('Permissions'),
             {
@@ -28,7 +41,9 @@ class AdministradorAdmin(BaseUserAdmin):
         (_('Groups'), {'fields': ('groups',)}),
         (_('User Permissions'), {'fields': ('user_permissions',)}),
     )
+
     readonly_fields = ['last_login']
+
     add_fieldsets = (
         (
             None,
@@ -42,6 +57,7 @@ class AdministradorAdmin(BaseUserAdmin):
                     'telefone',
                     'cargo',
                     'data_registro',
+                    'foto',  
                     'is_active',
                     'is_staff',
                     'is_superuser',
