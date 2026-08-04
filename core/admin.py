@@ -23,7 +23,7 @@ class AdministradorAdmin(BaseUserAdmin):
                     'telefone',
                     'cargo',
                     'data_registro',
-                    'foto',  
+                    'foto',
                 )
             },
         ),
@@ -57,7 +57,7 @@ class AdministradorAdmin(BaseUserAdmin):
                     'telefone',
                     'cargo',
                     'data_registro',
-                    'foto',  
+                    'foto',
                     'is_active',
                     'is_staff',
                     'is_superuser',
@@ -67,4 +67,24 @@ class AdministradorAdmin(BaseUserAdmin):
     )
 
 
+class ResidenteAdmin(admin.ModelAdmin):
+    """Define the admin pages for residentes."""
+
+    ordering = ['id']
+    list_display = ['id', 'nome_completo', 'quarto', 'grau_dependencia', 'data_admissao']
+    list_filter = ['grau_dependencia']
+    search_fields = ['nome_completo', 'nome_responsavel', 'nome_responsavel_2']
+
+
+class RotinaResidentesAdmin(admin.ModelAdmin):
+    """Define the admin pages for rotinas de residentes."""
+
+    ordering = ['id']
+    list_display = ['id', 'residente', 'categoria', 'horario', 'dias_semana']
+    list_filter = ['dias_semana', 'categoria']
+    search_fields = ['categoria', 'descricao']
+
+
 admin.site.register(models.Administrador, AdministradorAdmin)
+admin.site.register(models.Residente, ResidenteAdmin)
+admin.site.register(models.RotinaResidentes, RotinaResidentesAdmin)
