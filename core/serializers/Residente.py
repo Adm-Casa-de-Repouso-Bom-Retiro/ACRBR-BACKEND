@@ -16,15 +16,15 @@ class ResidenteRetrieveSerializer(ModelSerializer):
 
 
 class ResidenteSerializer(serializers.ModelSerializer):
-    perfil_attachment_key = SlugRelatedField(
-        source='perfil',
+    foto_attachment_key = SlugRelatedField(
+        source='foto',
         queryset=Image.objects.all(),
         slug_field='attachment_key',
         required=False,
         write_only=True,
     )
 
-    perfil = ImageSerializer(
+    foto = ImageSerializer(
         required=False,
         read_only=True
     )
@@ -51,8 +51,8 @@ class ResidenteSerializer(serializers.ModelSerializer):
             'parentesco_2',
             'dados_residentes',
             'responsavel_nome',
-            'perfil',
-            'perfil_attachment_key',
+            'foto',
+            'foto_attachment_key',
         ]
 
     def get_responsavel_nome(self, obj):
