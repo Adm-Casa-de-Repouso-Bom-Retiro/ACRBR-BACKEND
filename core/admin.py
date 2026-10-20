@@ -85,6 +85,25 @@ class RotinaResidentesAdmin(admin.ModelAdmin):
     search_fields = ['categoria', 'descricao']
 
 
+class DadosMedicosAdmin(admin.ModelAdmin):
+    """Define the admin pages for dados médicos."""
+
+    ordering = ['id']
+    list_display = ['id', 'residente', 'peso_altura', 'condicoes_medicas', 'alergias']
+    search_fields = ['condicoes_medicas', 'alergias', 'observacoes', 'residente__nome_completo']
+
+
+class CuidadosPessoaisAdmin(admin.ModelAdmin):
+    """Define the admin pages for cuidados pessoais."""
+
+    ordering = ['id']
+    list_display = ['id', 'residente', 'ajuda_banho', 'risco_queda', 'ajuda_alimentar']
+    list_filter = ['ajuda_banho', 'risco_queda', 'ajuda_alimentar']
+    search_fields = ['observacoes', 'residente__nome_completo']
+
+
 admin.site.register(models.Administrador, AdministradorAdmin)
 admin.site.register(models.Residente, ResidenteAdmin)
 admin.site.register(models.RotinaResidentes, RotinaResidentesAdmin)
+admin.site.register(models.DadosMedicos, DadosMedicosAdmin)
+admin.site.register(models.CuidadosPessoais, CuidadosPessoaisAdmin)

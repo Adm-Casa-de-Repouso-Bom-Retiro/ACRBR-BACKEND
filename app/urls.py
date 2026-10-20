@@ -3,7 +3,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
 from uploader.router import router as uploader_router
-from click.utils import R
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -15,7 +14,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-from core.views import AdministradorRegistrationView, AdministradorViewSet, AlergiaRestricaoViewSet, AplicacaoMedicamentosViewSet, AtendimentoViewSet, AvaliacaoNutricionalViewSet, FichaMedicaViewSet, MedicamentosViewSet, MedicamentosPrescricaoViewSet, OcorrenciaViewSet, PedidosMedicamentoViewSet, PrescricaoViewSet, ResidenteViewSet, RotinaResidentesViewSet
+from core.views import AdministradorRegistrationView, AdministradorViewSet, AlergiaRestricaoViewSet, AplicacaoMedicamentosViewSet, AtendimentoViewSet, AvaliacaoNutricionalViewSet, CuidadosPessoaisViewSet, DadosMedicosViewSet, FichaMedicaViewSet, MedicamentosViewSet, MedicamentosPrescricaoViewSet, OcorrenciaViewSet, PedidosMedicamentoViewSet, PrescricaoViewSet, ResidenteViewSet, RotinaResidentesViewSet
 
 router = DefaultRouter()
 router.register(r'administradores', AdministradorViewSet, basename='administradores')
@@ -24,13 +23,15 @@ router.register(r'aplicacoes', AplicacaoMedicamentosViewSet, basename='aplicacoe
 router.register(r'atendimentos', AtendimentoViewSet, basename='atendimentos')
 router.register(r'avaliacaonutricionais', AvaliacaoNutricionalViewSet, basename='avaliacaonutricionais')
 router.register(r'fichasmedicas', FichaMedicaViewSet, basename='fichasmedicas')
-router.register(r'medicamentos', MedicamentosViewSet, basename='python manage.py makemigrationsmedicamentos')
+router.register(r'medicamentos', MedicamentosViewSet, basename='medicamentos')
 router.register(r'medicamentosprescricoes', MedicamentosPrescricaoViewSet, basename='medicamentosprescricoes')
 router.register(r'ocorrencias', OcorrenciaViewSet, basename='ocorrencias')
 router.register(r'pedidosmedicamentos', PedidosMedicamentoViewSet, basename='pedidosmedicamentos')
 router.register(r'prescricoes', PrescricaoViewSet, basename='prescricoes')
 router.register(r'residentes', ResidenteViewSet, basename='residentes')
 router.register(r'rotinaresidentes', RotinaResidentesViewSet, basename='rotinaresidentes')
+router.register(r'dadosmedicos', DadosMedicosViewSet, basename='dadosmedicos')
+router.register(r'cuidadospessoais', CuidadosPessoaisViewSet, basename='cuidadospessoais')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

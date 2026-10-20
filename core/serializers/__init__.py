@@ -11,3 +11,5 @@ from .PedidosMedicamento import PedidosMedicamentoSerializer
 from .Prescricao import PrescricaoSerializer
 from .Residente import ResidenteSerializer
 from .RotinaResidentes import RotinaResidentesSerializer
+from .DadosMedicos import DadosMedicosSerializer, MedicacaoDadosMedicosSerializer
+from .CuidadosPessoais import CuidadosPessoaisSerializer
