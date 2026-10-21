@@ -148,4 +148,6 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-print(f'{MODE = } \n{MEDIA_URL = } \n{DATABASES = }')
+DATABASE_ENGINE = DATABASES['default']['ENGINE']
+
+print(f'{MODE = } \n{MEDIA_URL = } \n{DATABASE_ENGINE = }')
