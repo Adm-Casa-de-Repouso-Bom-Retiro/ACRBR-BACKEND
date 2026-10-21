@@ -89,7 +89,17 @@ class DadosMedicosAdmin(admin.ModelAdmin):
     """Define the admin pages for dados médicos."""
 
     ordering = ['id']
-    list_display = ['id', 'residente', 'peso_altura', 'condicoes_medicas', 'alergias']
+    list_display = [
+        'id',
+        'residente',
+        'peso',
+        'altura',
+        'peso_altura',
+        'condicoes_medicas',
+        'alergias',
+        'sem_alergias_conhecidas',
+    ]
+    list_filter = ['sem_alergias_conhecidas']
     search_fields = ['condicoes_medicas', 'alergias', 'observacoes', 'residente__nome_completo']
 
 

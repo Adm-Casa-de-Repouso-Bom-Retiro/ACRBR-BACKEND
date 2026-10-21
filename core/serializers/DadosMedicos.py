@@ -20,9 +20,16 @@ class DadosMedicosSerializer(serializers.ModelSerializer):
             'alergias',
             'observacoes',
             'peso_altura',
+            'peso',
+            'altura',
+            'sem_alergias_conhecidas',
             'residente',
             'medicacoes',
         ]
+        extra_kwargs = {
+            'peso': {'required': False, 'allow_null': True},
+            'altura': {'required': False, 'allow_null': True},
+        }
 
     def create(self, validated_data):
         medicacoes_data = validated_data.pop('medicacoes', [])
@@ -45,6 +52,11 @@ class DadosMedicosSerializer(serializers.ModelSerializer):
         instance.alergias = validated_data.get('alergias', instance.alergias)
         instance.observacoes = validated_data.get('observacoes', instance.observacoes)
         instance.peso_altura = validated_data.get('peso_altura', instance.peso_altura)
+        instance.peso = validated_data.get('peso', instance.peso)
+        instance.altura = validated_data.get('altura', instance.altura)
+        instance.sem_alergias_conhecidas = validated_data.get(
+            'sem_alergias_conhecidas', instance.sem_alergias_conhecidas
+        )
         instance.save()
 
         instance.medicacoes.all().delete()
