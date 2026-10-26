@@ -21,7 +21,7 @@ class AnotacaoCalendario(models.Model):
     residente = models.ForeignKey(
         'core.Residente',
         on_delete=models.CASCADE,
-        related_name='anotacoes_calendario',
+        related_name='anotacoes',
     )
     autor = models.ForeignKey(
         'core.Administrador',

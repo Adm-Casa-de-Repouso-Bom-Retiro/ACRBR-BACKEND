@@ -130,6 +130,7 @@ class AnotacaoCalendarioAdmin(admin.ModelAdmin):
     ]
     list_filter = ['categoria', 'status', 'data']
     search_fields = ['titulo', 'texto', 'residente__nome_completo', 'autor__nome']
+    list_per_page = 20
 
 
 admin.site.register(models.Administrador, AdministradorAdmin)

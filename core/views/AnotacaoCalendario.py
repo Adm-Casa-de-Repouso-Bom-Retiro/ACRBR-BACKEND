@@ -28,7 +28,7 @@ class AnotacaoCalendarioViewSet(ModelViewSet):
     serializer_class = AnotacaoCalendarioSerializer
     permission_classes = [IsAuthenticated, PodeEditarAnotacao]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['residente', 'data', 'categoria', 'status']
+    filterset_fields = ['residente', 'data', 'categoria']
 
     def perform_create(self, serializer):
         serializer.save(autor=self.request.user)
