@@ -9,6 +9,12 @@ CATEGORIA_CHOICES = (
     ('visita', 'Visita'),
 )
 
+STATUS_CHOICES = (
+    ('pendente', 'Pendente'),
+    ('concluido', 'Concluído'),
+    ('nao_concluido', 'Não concluído'),
+)
+
 
 class AnotacaoCalendario(models.Model):
 
@@ -30,6 +36,11 @@ class AnotacaoCalendario(models.Model):
         max_length=20,
         choices=CATEGORIA_CHOICES,
         default='geral',
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pendente',
     )
     titulo = models.CharField(max_length=120)
     texto = models.TextField(blank=True, default='')
