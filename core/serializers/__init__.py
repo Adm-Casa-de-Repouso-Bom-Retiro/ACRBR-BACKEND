@@ -13,3 +13,4 @@ from .Residente import ResidenteSerializer
 from .RotinaResidentes import RotinaResidentesSerializer
 from .DadosMedicos import DadosMedicosSerializer, MedicacaoDadosMedicosSerializer
 from .CuidadosPessoais import CuidadosPessoaisSerializer
+from .AnotacaoCalendario import AnotacaoCalendarioSerializer

@@ -13,3 +13,4 @@ from core.models.AlergiaRestricao import AlergiaRestricao
 from core.models.RotinaResidentes import RotinaResidentes
 from core.models.DadosMedicos import DadosMedicos, MedicacaoDadosMedicos
 from core.models.CuidadosPessoais import CuidadosPessoais
+from core.models.AnotacaoCalendario import AnotacaoCalendario

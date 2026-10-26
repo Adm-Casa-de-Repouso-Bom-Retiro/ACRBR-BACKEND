@@ -1,8 +1,7 @@
-from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
 from django.urls import include, path
-from uploader.router import router as uploader_router
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -14,7 +13,27 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-from core.views import AdministradorRegistrationView, AdministradorViewSet, AlergiaRestricaoViewSet, AplicacaoMedicamentosViewSet, AtendimentoViewSet, AvaliacaoNutricionalViewSet, CuidadosPessoaisViewSet, DadosMedicosViewSet, FichaMedicaViewSet, MedicamentosViewSet, MedicamentosPrescricaoViewSet, OcorrenciaViewSet, PedidosMedicamentoViewSet, PrescricaoViewSet, ResidenteViewSet, RotinaResidentesViewSet
+
+from core.views import (
+    AdministradorRegistrationView,
+    AdministradorViewSet,
+    AlergiaRestricaoViewSet,
+    AnotacaoCalendarioViewSet,
+    AplicacaoMedicamentosViewSet,
+    AtendimentoViewSet,
+    AvaliacaoNutricionalViewSet,
+    CuidadosPessoaisViewSet,
+    DadosMedicosViewSet,
+    FichaMedicaViewSet,
+    MedicamentosPrescricaoViewSet,
+    MedicamentosViewSet,
+    OcorrenciaViewSet,
+    PedidosMedicamentoViewSet,
+    PrescricaoViewSet,
+    ResidenteViewSet,
+    RotinaResidentesViewSet,
+)
+from uploader.router import router as uploader_router
 
 router = DefaultRouter()
 router.register(r'administradores', AdministradorViewSet, basename='administradores')
@@ -32,6 +51,7 @@ router.register(r'residentes', ResidenteViewSet, basename='residentes')
 router.register(r'rotinaresidentes', RotinaResidentesViewSet, basename='rotinaresidentes')
 router.register(r'dadosmedicos', DadosMedicosViewSet, basename='dadosmedicos')
 router.register(r'cuidadospessoais', CuidadosPessoaisViewSet, basename='cuidadospessoais')
+router.register(r'anotacoes', AnotacaoCalendarioViewSet, basename='anotacoes')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

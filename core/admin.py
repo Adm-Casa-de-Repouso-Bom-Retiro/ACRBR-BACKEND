@@ -4,6 +4,7 @@ Django admin customization.
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
+
 from core import models
 
 
@@ -112,8 +113,27 @@ class CuidadosPessoaisAdmin(admin.ModelAdmin):
     search_fields = ['observacoes', 'residente__nome_completo']
 
 
+class AnotacaoCalendarioAdmin(admin.ModelAdmin):
+    """Define the admin pages for anotações do calendário."""
+
+    ordering = ['id']
+    list_display = [
+        'id',
+        'residente',
+        'data',
+        'hora',
+        'categoria',
+        'titulo',
+        'autor',
+        'criado_em',
+    ]
+    list_filter = ['categoria', 'data']
+    search_fields = ['titulo', 'texto', 'residente__nome_completo', 'autor__nome']
+
+
 admin.site.register(models.Administrador, AdministradorAdmin)
 admin.site.register(models.Residente, ResidenteAdmin)
 admin.site.register(models.RotinaResidentes, RotinaResidentesAdmin)
 admin.site.register(models.DadosMedicos, DadosMedicosAdmin)
 admin.site.register(models.CuidadosPessoais, CuidadosPessoaisAdmin)
+admin.site.register(models.AnotacaoCalendario, AnotacaoCalendarioAdmin)

@@ -13,4 +13,5 @@ from .Residente import ResidenteViewSet
 from .RotinaResidentes import RotinaResidentesViewSet
 from .DadosMedicos import DadosMedicosViewSet
 from .CuidadosPessoais import CuidadosPessoaisViewSet
+from .AnotacaoCalendario import AnotacaoCalendarioViewSet, PodeEditarAnotacao
 
