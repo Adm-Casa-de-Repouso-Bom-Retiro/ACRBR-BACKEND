@@ -78,3 +78,11 @@ urlpatterns = [
     path('api/', include(router.urls)),
 ]
 urlpatterns += static(settings.MEDIA_ENDPOINT, document_root=settings.MEDIA_ROOT)
+
+
+from django.views.generic import RedirectView
+from django.urls import path
+
+urlpatterns += [
+    path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
+]
