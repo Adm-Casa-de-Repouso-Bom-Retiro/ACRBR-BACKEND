@@ -14,6 +14,7 @@ class AnotacaoCalendarioSerializer(serializers.ModelSerializer):
             'data',
             'hora',
             'categoria',
+            'status',
             'titulo',
             'texto',
             'autor',
