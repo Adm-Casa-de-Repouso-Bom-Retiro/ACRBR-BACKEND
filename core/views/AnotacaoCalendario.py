@@ -1,9 +1,11 @@
+
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from core.models import AnotacaoCalendario
 from core.serializers import AnotacaoCalendarioSerializer
+
 
 CARGOS_COM_EDICAO = ('chefe', 'gerente', 'cuidador')
 
@@ -20,15 +22,33 @@ class PodeEditarAnotacao(BasePermission):
         if request.method in SAFE_METHODS:
             return True
 
-        return usuario.is_superuser or usuario.cargo in CARGOS_COM_EDICAO
+        cargo = getattr(usuario, 'cargo', None)
+
+        return (
+            usuario.is_superuser
+            or cargo in CARGOS_COM_EDICAO
+        )
 
 
 class AnotacaoCalendarioViewSet(ModelViewSet):
-    queryset = AnotacaoCalendario.objects.select_related('autor').all()
+    queryset = AnotacaoCalendario.objects.select_related(
+        'autor',
+        'residente'
+    ).all()
+
     serializer_class = AnotacaoCalendarioSerializer
     permission_classes = [IsAuthenticated, PodeEditarAnotacao]
+
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['residente', 'data', 'categoria']
 
     def perform_create(self, serializer):
-        serializer.save(autor=self.request.user)
+        usuario = self.request.user
+
+        # Evita atribuir um usuário de outro modelo à FK Administrador.
+        if usuario._meta.label_lower != 'core.administrador':
+            raise ValueError(
+                'O usuário autenticado não pertence ao modelo Administrador.'
+            )
+
+        serializer.save(autor=usuario)

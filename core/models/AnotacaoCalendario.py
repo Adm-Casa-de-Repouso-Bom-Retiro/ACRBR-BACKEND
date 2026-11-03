@@ -1,4 +1,6 @@
+
 from django.db import models
+
 
 CATEGORIA_CHOICES = (
     ('geral', 'Geral'),
@@ -17,12 +19,12 @@ STATUS_CHOICES = (
 
 
 class AnotacaoCalendario(models.Model):
-
     residente = models.ForeignKey(
         'core.Residente',
         on_delete=models.CASCADE,
         related_name='anotacoes',
     )
+
     autor = models.ForeignKey(
         'core.Administrador',
         on_delete=models.SET_NULL,
@@ -30,20 +32,25 @@ class AnotacaoCalendario(models.Model):
         blank=True,
         related_name='anotacoes_calendario',
     )
+
     data = models.DateField()
     hora = models.TimeField(null=True, blank=True)
+
     categoria = models.CharField(
         max_length=20,
         choices=CATEGORIA_CHOICES,
         default='geral',
     )
+
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
         default='pendente',
     )
+
     titulo = models.CharField(max_length=120)
     texto = models.TextField(blank=True, default='')
+
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
 

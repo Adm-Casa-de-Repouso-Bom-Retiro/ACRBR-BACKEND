@@ -1,6 +1,8 @@
+
 """
 Django admin customization.
 """
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
@@ -13,6 +15,7 @@ class AdministradorAdmin(BaseUserAdmin):
 
     ordering = ['id']
     list_display = ['email', 'nome', 'cargo']
+    search_fields = ['email', 'nome']
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
@@ -72,22 +75,38 @@ class ResidenteAdmin(admin.ModelAdmin):
     """Define the admin pages for residentes."""
 
     ordering = ['id']
-    list_display = ['id', 'nome_completo', 'quarto', 'grau_dependencia', 'data_admissao']
+    list_display = [
+        'id',
+        'nome_completo',
+        'quarto',
+        'grau_dependencia',
+        'data_admissao',
+    ]
     list_filter = ['grau_dependencia']
-    search_fields = ['nome_completo', 'nome_responsavel', 'nome_responsavel_2']
+    search_fields = [
+        'nome_completo',
+        'nome_responsavel',
+        'nome_responsavel_2',
+    ]
 
 
 class RotinaResidentesAdmin(admin.ModelAdmin):
     """Define the admin pages for rotinas de residentes."""
 
     ordering = ['id']
-    list_display = ['id', 'residente', 'categoria', 'horario', 'dias_semana']
+    list_display = [
+        'id',
+        'residente',
+        'categoria',
+        'horario',
+        'dias_semana',
+    ]
     list_filter = ['dias_semana', 'categoria']
     search_fields = ['categoria', 'descricao']
 
 
 class DadosMedicosAdmin(admin.ModelAdmin):
-    """Define the admin pages for dados médicos."""
+    """Define the admin pages para dados médicos."""
 
     ordering = ['id']
     list_display = [
@@ -101,22 +120,41 @@ class DadosMedicosAdmin(admin.ModelAdmin):
         'sem_alergias_conhecidas',
     ]
     list_filter = ['sem_alergias_conhecidas']
-    search_fields = ['condicoes_medicas', 'alergias', 'observacoes', 'residente__nome_completo']
+    search_fields = [
+        'condicoes_medicas',
+        'alergias',
+        'observacoes',
+        'residente__nome_completo',
+    ]
 
 
 class CuidadosPessoaisAdmin(admin.ModelAdmin):
     """Define the admin pages for cuidados pessoais."""
 
     ordering = ['id']
-    list_display = ['id', 'residente', 'ajuda_banho', 'risco_queda', 'ajuda_alimentar']
-    list_filter = ['ajuda_banho', 'risco_queda', 'ajuda_alimentar']
-    search_fields = ['observacoes', 'residente__nome_completo']
+    list_display = [
+        'id',
+        'residente',
+        'ajuda_banho',
+        'risco_queda',
+        'ajuda_alimentar',
+    ]
+    list_filter = [
+        'ajuda_banho',
+        'risco_queda',
+        'ajuda_alimentar',
+    ]
+    search_fields = [
+        'observacoes',
+        'residente__nome_completo',
+    ]
 
 
 class AnotacaoCalendarioAdmin(admin.ModelAdmin):
     """Define the admin pages for anotações do calendário."""
 
     ordering = ['id']
+
     list_display = [
         'id',
         'residente',
@@ -128,9 +166,29 @@ class AnotacaoCalendarioAdmin(admin.ModelAdmin):
         'autor',
         'criado_em',
     ]
-    list_filter = ['categoria', 'status', 'data']
-    search_fields = ['titulo', 'texto', 'residente__nome_completo', 'autor__nome']
+
+    list_filter = [
+        'categoria',
+        'status',
+        'data',
+    ]
+
+    # Pesquisa pelo nome e pelo email do autor.
+    search_fields = [
+        'titulo',
+        'texto',
+        'residente__nome_completo',
+        'autor__nome',
+        'autor__email',
+    ]
+
+    list_select_related = [
+        'residente',
+        'autor',
+    ]
+
     list_per_page = 20
+    date_hierarchy = 'data'
 
 
 admin.site.register(models.Administrador, AdministradorAdmin)
