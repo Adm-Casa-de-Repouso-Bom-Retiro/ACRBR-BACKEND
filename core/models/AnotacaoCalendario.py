@@ -9,19 +9,13 @@ CATEGORIA_CHOICES = (
     ('visita', 'Visita'),
 )
 
-STATUS_CHOICES = (
-    ('pendente', 'Pendente'),
-    ('concluido', 'Concluído'),
-    ('nao_concluido', 'Não concluído'),
-)
-
 
 class AnotacaoCalendario(models.Model):
 
     residente = models.ForeignKey(
         'core.Residente',
         on_delete=models.CASCADE,
-        related_name='anotacoes',
+        related_name='anotacoes_calendario',
     )
     autor = models.ForeignKey(
         'core.Administrador',
@@ -36,11 +30,6 @@ class AnotacaoCalendario(models.Model):
         max_length=20,
         choices=CATEGORIA_CHOICES,
         default='geral',
-    )
-    status = models.CharField(
-        max_length=20,
-        choices=STATUS_CHOICES,
-        default='pendente',
     )
     titulo = models.CharField(max_length=120)
     texto = models.TextField(blank=True, default='')

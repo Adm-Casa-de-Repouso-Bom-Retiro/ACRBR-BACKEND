@@ -31,8 +31,4 @@ class AnotacaoCalendarioViewSet(ModelViewSet):
     filterset_fields = ['residente', 'data', 'categoria']
 
     def perform_create(self, serializer):
-        usuario = self.request.user
-        if usuario and usuario.is_authenticated:
-            serializer.save(autor=usuario)
-            return
-        serializer.save()
+        serializer.save(autor=self.request.user)
