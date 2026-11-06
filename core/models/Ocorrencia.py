@@ -1,8 +1,15 @@
 from django.db import models
 
+from uploader.models import Image
+
 
 class Ocorrencia(models.Model):
 
+    fotos = models.ManyToManyField(
+        Image,
+        blank=True,
+        related_name='ocorrencias',
+    )
     tipo = models.CharField(max_length=45, blank=True)
     gravidade = models.CharField(max_length=45, blank=True)
     descricao = models.TextField(blank=True)

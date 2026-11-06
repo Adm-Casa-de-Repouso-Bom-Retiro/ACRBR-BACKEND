@@ -1,11 +1,19 @@
 from rest_framework import serializers
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SlugRelatedField
+
 from core.models import Administrador
 from uploader.models import Image
 
 
 class AdministradorSerializer(ModelSerializer):
     foto_url = serializers.SerializerMethodField()
+    perfil_attachment_key = SlugRelatedField(
+        source='foto',
+        queryset=Image.objects.all(),
+        slug_field='attachment_key',
+        required=False,
+        write_only=True,
+    )
 
     class Meta:
         model = Administrador
@@ -17,6 +25,7 @@ class AdministradorSerializer(ModelSerializer):
             'cargo',
             'data_registro',
             'foto_url',
+            'perfil_attachment_key',
             'is_active',
             'is_staff',
             'is_superuser',
